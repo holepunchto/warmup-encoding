@@ -1,0 +1,22 @@
+{
+  "name": "@holepunchto/warmup-encoding",
+  "version": "1.0.0",
+  "description": "Encode sets of random blocks for warmup",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && brittle test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holepunchto/warmup-encoding"
+  },
+  "author": "Holepunch",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "brittle": "^3.3.2",
+    "standard": "^17.1.0"
+  },
+  "dependencies": {
+    "compact-encoding": "^2.13.0"
+  }
+}
