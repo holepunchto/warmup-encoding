@@ -3,24 +3,23 @@ const c = require('compact-encoding')
 const VERSION = 1
 const UIntArray = c.array(c.uint)
 
-module.exports.preencode = function (state, blocks) {
-  c.uint.preencode(state, VERSION)
-  state._arr = deltaEncode(blocks)
-  UIntArray.preencode(state, state._arr)
+module.exports.encoding = {
+  preencode (state, m) {
+    c.uint.preencode(state, VERSION)
+    UIntArray.preencode(state, m)
+  },
+  encode (state, m) {
+    c.uint.encode(state, VERSION)
+    UIntArray.encode(state, m)
+  },
+  decode (state) {
+    const version = c.uint.decode(state)
+    if (version !== VERSION) throw new Error('Unsupported warmup-encoding version')
+    UIntArray.decode(state)
+  }
 }
 
-module.exports.encode = function (state, blocks) {
-  c.uint.encode(state, VERSION)
-  UIntArray.encode(state, state._arr || deltaEncode(blocks))
-  state._arr = null
-}
-
-module.exports.decode = function (state) {
-  c.uint.decode(state) // VERSION
-  return deltaDecode(UIntArray.decode(state))
-}
-
-function deltaEncode (blocks) {
+module.exports.compress = function (blocks) {
   blocks.sort(numericSort)
   const res = []
   for (let i = 0; i < blocks.length; i++) {
@@ -34,7 +33,7 @@ function deltaEncode (blocks) {
   return res
 }
 
-function deltaDecode (arr) {
+module.exports.decompress = function (arr) {
   if (arr.length === 0) return arr
   let min = arr[0]
   const res = [min]

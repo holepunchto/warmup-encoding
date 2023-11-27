@@ -6,12 +6,32 @@ Encode/decode sets of random blocks for warmup.
 
 ### Usage
 ```js
-const WarmupEncoding = require('warmup-encoding')
+const { compress, decompress, encoding: WarmupEncoding } = require('warmup-encoding')
 const c = require('compact-encoding')
 
-// Pass an unsorted array of uints potentially containing dupes
-// Will be encoded as a delta-encoded uint array
-const encoded = c.encode(WarmupEncoding, [232, 244, 11, 3, 1, 2, 3, 4, 5, 23])
-const decoded = c.decode(WarmupEncoding, encoded)
+// Can use the exported encoding as a compact encoder
+const MyEncoding = {
+  preencode (state, m) {
+    WarmupEncoding.preencode(state, m.warmup)
+    ...
+  },
+  encode (state, m) {
+    WarmupEncoding.encode(state, m.warmup)
+    ...
+  },
+  decode (state) {
+    return {
+      warmup: WarmupEncoding.decode(state),
+      ...
+    }  
+  }
+} 
+
+const warmup = [232, 244, 11, 3, 1, 2, 3, 4, 5, 23]
+// Can run-length encode later, but warmups are mostly random
+// [1, 1, 1, 1, 1, 6, 12, 209, 12]
+const compressed = compress(warmup)
+// [ 1, 2, 3, 4, 5, 11, 23, 232, 244 ]
+const decompressed = decompress(compressed)
 ```
 
