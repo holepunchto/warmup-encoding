@@ -15,7 +15,7 @@ module.exports.encoding = {
   decode (state) {
     const version = c.uint.decode(state)
     if (version !== VERSION) throw new Error('Unsupported warmup-encoding version')
-    UIntArray.decode(state)
+    return UIntArray.decode(state)
   }
 }
 
