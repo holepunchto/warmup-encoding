@@ -1,6 +1,6 @@
 {
   "name": "warmup-encoding",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Encode sets of random blocks for warmup",
   "main": "index.js",
   "scripts": {
