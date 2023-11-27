@@ -1,5 +1,5 @@
 {
-  "name": "@holepunchto/warmup-encoding",
+  "name": "warmup-encoding",
   "version": "1.0.0",
   "description": "Encode sets of random blocks for warmup",
   "main": "index.js",
