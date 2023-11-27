@@ -2,11 +2,11 @@
 Encode/decode sets of random blocks for warmup.
 
 ### Installation
-`npm i @holepunchto/warmup-encoding --save`
+`npm i warmup-encoding --save`
 
 ### Usage
 ```js
-const WarmupEncoding = require('@holepunchto/warmup-encoding')
+const WarmupEncoding = require('warmup-encoding')
 const c = require('compact-encoding')
 
 // Pass an unsorted array of uints potentially containing dupes
