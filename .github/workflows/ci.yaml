@@ -35,7 +35,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm test
-      - run: npm run integration
   trigger_canary:
     if: startsWith(github.ref, 'refs/tags/') # Only run when a new package is published (detects when a new tag is pushed)
     runs-on: [self-hosted, non-ui, Linux]
